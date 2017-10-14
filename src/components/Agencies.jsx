@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Segment, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import { getAgencies } from '../actions';
 import Agency from './Agency';
 
@@ -16,9 +16,8 @@ export class Agencies extends Component {
         <Header as="h2">
           Agency Details
         </Header>
-        <p>
-          { agencyIds.map(agencyId => <Agency key={agencyId} agencyId={agencyId}/>) }
-        </p>
+
+        { agencyIds.map(agencyId => <Agency key={agencyId} agencyId={agencyId}/>) }
       </div>
     );
   }
