@@ -2,40 +2,38 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Header } from 'semantic-ui-react';
-import { getAgencies } from '../actions';
-import Agency from './Agency';
-import Routes from './Routes';
+import { getRoutes } from '../actions';
+import Route from './Route';
 
-export class Agencies extends Component {
+export class Routes extends Component {
   componentDidMount() {
-    this.props.getAgencies();
+    this.props.getRoutes();
   }
+
   render() {
-    const { agencyIds } = this.props;
+    const { routeIds } = this.props;
     return (
       <div>
-        <Header as="h2">
-          Agency Details
+        <Header as="h3">
+          Routes
         </Header>
 
-        { agencyIds.map(agencyId => <Agency key={agencyId} agencyId={agencyId} />) }
-
-        <Routes />
+          { routeIds.map(routeId => <Route key={routeId} routeId={routeId} />) }
       </div>
     );
   }
 }
 
 export const mapStateToProps = (state) => {
-  const { agencyIds } = state.agencies;
-  return { agencyIds };
+  const { routeIds } = state.routes;
+  return { routeIds };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getAgencies,
+  getRoutes,
 }, dispatch);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Agencies);
+)(Routes);

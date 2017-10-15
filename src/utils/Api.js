@@ -5,4 +5,9 @@ export default class Api {
     return fetch(`${BASE_PATH}/agencies`)
       .then(response => response.json());
   }
+
+  static getRoutes() {
+    return fetch(`${BASE_PATH}/routes`)
+      .then(response => response.json());
+  }
 }

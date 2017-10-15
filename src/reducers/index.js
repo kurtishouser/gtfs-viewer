@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import { AGENCIES_RECEIVED } from '../actions';
+import { AGENCIES_RECEIVED,
+  ROUTES_RECEIVED,
+  SERVICE_RECEIVED } from '../actions';
 
 export function agencies(state = { agencyIds: [], agenciesById: {} }, action) {
   switch (action.type) {
@@ -17,16 +19,39 @@ export function agencies(state = { agencyIds: [], agenciesById: {} }, action) {
   }
 }
 
-export function routes(state = {}) {
-  return state;
+export function routes(state = { routeIds: [], routesById: {} }, action) {
+  switch (action.type) {
+    case ROUTES_RECEIVED:
+      return {
+        routeIds: action.routes.map(route => route.routeId),
+        routesById: action.routes.reduce((result, route) => {
+          result[route.routeId] = route;
+          return result;
+        }, {}),
+      };
+
+    default:
+      return state;
+  }
 }
 
 export function trips(state = {}) {
   return state;
 }
 
+export function service(state = {}, action) {
+  switch (action.type) {
+    case SERVICE_RECEIVED:
+      return state;
+
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   agencies,
   routes,
   trips,
+  service,
 });

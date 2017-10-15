@@ -6,18 +6,16 @@ export class Agency extends Component {
     const { agencyId, agencyName } = this.props.agency;
 
     return (
-      <div>
+      <p>
         { agencyName } ({ agencyId })
-      </div>
+      </p>
     );
   }
 }
 
 export const mapStateToProps = (state, ownProps) => {
   const agency = state.agencies.agenciesById[ownProps.agencyId];
-  return {
-    agency,
-  };
+  return { agency };
 };
 
 export default connect(
