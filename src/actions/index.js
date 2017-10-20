@@ -24,7 +24,15 @@ export function getRoutes() {
 
 export const SERVICE_RECEIVED = 'SERVICE_RECEIVED';
 export function getService(routeId) {
-  return {
-    type: SERVICE_RECEIVED,
+  return async (dispatch, getState, { Api }) => {
+    if (getState().services.serviceIds.includes(routeId)) {
+      return;
+    }
+    const service = await Api.getService(routeId);
+
+    return dispatch({
+      type: SERVICE_RECEIVED,
+      service,
+    });
   };
 }

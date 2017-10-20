@@ -2,7 +2,8 @@ import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 
 // import TripService from './TripService';
-import TripServices from './TripServices';
+// import TripServices from './TripServices';
+import Services from './Services';
 
 export const Content = () => (
   <Container>
@@ -11,7 +12,8 @@ export const Content = () => (
     </Header>
     <div>
       {/* <TripService /> */}
-      <TripServices />
+      {/* <TripServices /> */}
+      <Services />
     </div>
   </Container>
 );

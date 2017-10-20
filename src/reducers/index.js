@@ -39,10 +39,13 @@ export function trips(state = {}) {
   return state;
 }
 
-export function service(state = {}, action) {
+export function services(state = { serviceIds: [], servicesById: {} }, action) {
   switch (action.type) {
     case SERVICE_RECEIVED:
-      return state;
+      return {
+        serviceIds: [...state.serviceIds, action.service.routeId],
+        servicesById: { ...state.servicesById, [action.service.routeId]: action.service },
+      };
 
     default:
       return state;
@@ -53,5 +56,5 @@ export default combineReducers({
   agencies,
   routes,
   trips,
-  service,
+  services,
 });

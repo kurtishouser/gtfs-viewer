@@ -10,4 +10,9 @@ export default class Api {
     return fetch(`${BASE_PATH}/routes`)
       .then(response => response.json());
   }
+
+  static getService(id) {
+    return fetch(`${BASE_PATH}/shapes/route/${id}`)
+      .then(response => response.json());
+  }
 }
