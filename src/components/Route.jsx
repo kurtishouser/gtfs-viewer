@@ -17,10 +17,11 @@ export class Route extends Component {
   }
 
   render() {
-    const { routeId, routeShortName } = this.props.route;
+    const { routeId, routeShortName, serviceIds } = this.props.route;
+    const buttonStatus = !serviceIds.includes('1'); // hardcoding M-F service for now
 
     return (
-      <Button basic circular size="mini" color='purple' id={routeId} onClick={this.handleClick}>
+      <Button disabled={buttonStatus} basic circular size='mini' color='purple' id={routeId} onClick={this.handleClick}>
         { routeShortName }
       </Button>
     );
