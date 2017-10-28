@@ -22,6 +22,18 @@ export function getRoutes() {
   };
 }
 
+export const SHAPES_RECEIVED = 'SHAPES_RECEIVED';
+export function getShapes() {
+  return async (dispatch, getState, { Api }) => {
+    const shapes = await Api.getShapes();
+
+    return dispatch({
+      type: SHAPES_RECEIVED,
+      shapes,
+    });
+  };
+}
+
 export const SERVICE_RECEIVED = 'SERVICE_RECEIVED';
 export function getService(routeId) {
   return async (dispatch, getState, { Api }) => {

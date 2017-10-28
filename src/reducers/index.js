@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { AGENCIES_RECEIVED,
   ROUTES_RECEIVED,
+  SHAPES_RECEIVED,
   SERVICE_RECEIVED } from '../actions';
 
 export function agencies(state = { agencyIds: [], agenciesById: {} }, action) {
@@ -35,6 +36,22 @@ export function routes(state = { routeIds: [], routesById: {} }, action) {
   }
 }
 
+export function shapes(state = { shapeIds: [], shapesById: {} }, action) {
+  switch (action.type) {
+    case SHAPES_RECEIVED:
+      return {
+        shapeIds: action.shapes.map(shape => shape.shapeId),
+        shapesById: action.shapes.reduce((result, shape) => {
+          result[shape.shapeId] = shape;
+          return result;
+        }, {}),
+      };
+
+    default:
+      return state;
+  }
+}
+
 export function trips(state = {}) {
   return state;
 }
@@ -55,6 +72,7 @@ export function services(state = { serviceIds: [], servicesById: {} }, action) {
 export default combineReducers({
   agencies,
   routes,
+  shapes,
   trips,
   services,
 });

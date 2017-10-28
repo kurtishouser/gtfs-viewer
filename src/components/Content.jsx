@@ -1,9 +1,8 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 
-// import TripService from './TripService';
-// import TripServices from './TripServices';
-import Services from './Services';
+// import Services from './Services';
+import Shapes from './Shapes';
 
 export const Content = () => (
   <Container>
@@ -11,9 +10,8 @@ export const Content = () => (
       Route Viewer
     </Header>
     <div>
-      {/* <TripService /> */}
-      {/* <TripServices /> */}
-      <Services />
+      {/* <Services /> */}
+      <Shapes />
     </div>
   </Container>
 );

@@ -11,6 +11,11 @@ export default class Api {
       .then(response => response.json());
   }
 
+  static getShapes() {
+    return fetch(`${BASE_PATH}/shapes`)
+      .then(response => response.json());
+  }
+
   static getService(id) {
     return fetch(`${BASE_PATH}/shapes/route/${id}`)
       .then(response => response.json());
