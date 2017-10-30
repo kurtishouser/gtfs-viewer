@@ -17,8 +17,10 @@ export class Route extends Component {
   }
 
   render() {
-    const { routeId, routeShortName, serviceIds } = this.props.route;
-    const buttonStatus = !serviceIds.includes('1'); // hardcoding M-F service for now
+    const { routeId, routeShortName, routeShapes } = this.props.route;
+    const { direction, service } = this.props;
+
+    const buttonStatus = !(routeShapes[direction] && routeShapes[direction][service]);
 
     return (
       <Button disabled={buttonStatus} basic circular size='mini' color='purple' id={routeId} onClick={this.handleClick}>
@@ -30,7 +32,8 @@ export class Route extends Component {
 
 export const mapStateToProps = (state, ownProps) => {
   const route = state.routes.routesById[ownProps.routeId];
-  return { route };
+  const { direction, service } = ownProps;
+  return { route, direction, service };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -12,13 +12,23 @@ export class Routes extends Component {
 
   render() {
     const { routeIds } = this.props;
+
+    // filter by... (add UI/Store for this later)
+    const direction = 0; // 0: inbound, 1: outbound
+    const service = 1; // 1: M-F, 2: Sat, 3: Sun
+
     return (
       <div>
         <Header as="h3">
           Routes
         </Header>
 
-          { routeIds.map(routeId => <Route key={routeId} routeId={routeId} />) }
+          { routeIds.map(routeId => <Route
+            key={routeId}
+            routeId={routeId}
+            direction={direction}
+            service={service}
+          />) }
       </div>
     );
   }
