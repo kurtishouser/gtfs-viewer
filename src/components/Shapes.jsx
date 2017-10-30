@@ -31,7 +31,7 @@ export class Shapes extends Component {
       geoJson.features.push(geoJsonFeature);
     });
 
-    const width = 1000;
+    const width = 1097;
     const height = 700;
 
     const projection = geoMercator()
