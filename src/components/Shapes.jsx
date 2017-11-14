@@ -10,7 +10,12 @@ export class Shapes extends Component {
   }
 
   render() {
-    const { shapeIds, shapesById } = this.props;
+    const {
+      shapeIds, shapesById, routesById,
+    } = this.props;
+
+    const direction = 0; // 0: outbound, 1: inbound
+    const service = 2; // 1: M-F, 2: Sat, 3: Sun
 
     const geoJson = {
       type: 'FeatureCollection',
@@ -18,17 +23,21 @@ export class Shapes extends Component {
     };
 
     shapeIds.forEach((id) => {
-      const geoJsonFeature = {
-        type: 'Feature',
-        properties: {
-          shapeId: shapesById[id].shapeId,
-        },
-        geometry: {
-          coordinates: shapesById[id].coordinates,
-          type: 'LineString',
-        },
-      };
-      geoJson.features.push(geoJsonFeature);
+      if (routesById[shapesById[id].routeId].routeShapes[direction] &&
+        routesById[shapesById[id].routeId].routeShapes[direction][service] &&
+        routesById[shapesById[id].routeId].routeShapes[direction][service].includes(id)) {
+        const geoJsonFeature = {
+          type: 'Feature',
+          properties: {
+            shapeId: shapesById[id].shapeId,
+          },
+          geometry: {
+            coordinates: shapesById[id].coordinates,
+            type: 'LineString',
+          },
+        };
+        geoJson.features.push(geoJsonFeature);
+      }
     });
 
     const width = 1097;
@@ -38,7 +47,8 @@ export class Shapes extends Component {
       // resizes per combined paths that are on the map
       .scale(1)
       .fitSize([width, height], geoJson);
-      // .scale(220000) // 248000
+      // absolute scale
+      // .scale(225000) // 248000
       // .center([-122.433701, 37.767683])
       // .translate([width / 2, height / 2]);
 
@@ -58,8 +68,11 @@ export class Shapes extends Component {
 }
 
 export const mapStateToProps = (state) => {
+  const { routesById } = state.routes;
   const { shapeIds, shapesById } = state.shapes;
-  return { shapeIds, shapesById };
+  return {
+    shapeIds, shapesById, routesById,
+  };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
