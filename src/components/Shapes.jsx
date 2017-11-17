@@ -55,8 +55,8 @@ export class Shapes extends Component {
     const pathGenerator = geoPath().projection(projection);
 
     const routePaths = geoJson.features
-      .map((d, i) => <path
-          key={`path${i}`}
+      .map(d => <path
+          key={`${d.properties.shapeId}`}
           d={pathGenerator(d)}
           fill='none'
           stroke='grey'
@@ -67,7 +67,7 @@ export class Shapes extends Component {
     // const routePaths = shapeIds
     //   .filter(id => this.hasRoute(id))
     //   .map(id => <path
-    //               key={`path${id}`}
+    //               key={`${d.properties.shapeId}`}
     //               d={pathGenerator(this.geoJsonFeature(id))}
     //               fill='none'
     //               stroke='grey'
