@@ -12,11 +12,7 @@ export class Agencies extends Component {
   render() {
     const { agencyIds } = this.props;
     return (
-      <div id="agency-details">
-        <Header as="h2">
-          Agency
-        </Header>
-
+      <div>
         { agencyIds.map(agencyId => <Agency key={agencyId} agencyId={agencyId} />) }
       </div>
     );

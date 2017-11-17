@@ -6,7 +6,12 @@ import Routes from './Routes';
 export const Sidebar = () => (
   <div id="sidebar">
     <div id="sidebar-header">
-      <Agencies />
+      <div id="agency-details">
+        <Header as="h2">
+          Agency
+        </Header>
+        <Agencies />
+      </div>
     </div>
     <div id="sidebar-body-header">
       <Header as="h3">
