@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Segment } from 'semantic-ui-react';
 
-import InformationalHeader from './components/InformationalHeader';
-import Content from './components/Content';
+import Sidebar from './components/Sidebar';
+import Viewer from './components/Viewer';
 
 class App extends Component {
   render() {
     return (
-      <Container>
-        <Segment>
-          <InformationalHeader />
-        </Segment>
-        <Segment>
-          <Content />
-        </Segment>
-      </Container>
+      <div id="app">
+        <Sidebar />
+        <Viewer />
+      </div>
     );
   }
 }

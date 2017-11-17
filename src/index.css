@@ -1,6 +1,101 @@
 body {
+  height: 100%;
   margin: 0px auto;
-  padding: 20px 0 0 0;
-  width: 1400px;
   font-family: sans-serif;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+#app {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+#sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 350px;
+  min-width: 1px;
+  max-width: 350px;
+  background: #a82036;
+  color: #dddddd;
+}
+#sidebar-header {
+  position: relative;
+  padding: 20px;
+  background-color: #333333;
+  flex-basis: 120px;
+}
+#sidebar-header #agency-details,
+#sidebar-header #agency-details h2,
+#sidebar-body-header h3 {
+  color: #efefef;
+}
+#sidebar-body-header {
+  padding: 10px 20px 0px 20px;
+}
+#sidebar-body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+#sidebar-footer {
+  order: 1;
+  flex-shrink: 0;
+  position: relative;
+  padding: 20px;
+  background-color: #333333;
+}
+#routes {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 1px;
+}
+#routes-container {
+  position: relative;
+  overflow-y: hidden;
+  display: flex;
+  flex: 1;
+  padding: 10px 0px 20px 20px;
+}
+#routes-scroller {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: auto!important;
+}
+#route-list {
+  flex-grow: 1;
+  line-height: 1.5rem;
+}
+#viewer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px;
+}
+.route-item {
+  padding: 0 5px;
+}
+.route-item:hover {
+  color: #559dd4;
+  background: #333333;
+}
+#viewer h2 {
+  border-bottom: 2px solid black;
+}
+#viewport {
+  height: 100%;
 }

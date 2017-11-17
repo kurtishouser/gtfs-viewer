@@ -11,7 +11,7 @@ export class Shapes extends Component {
 
   render() {
     const {
-      shapeIds, shapesById, routesById,
+      shapeIds, shapesById, routesById, width, height,
     } = this.props;
 
     const direction = 0; // 0: outbound, 1: inbound
@@ -40,9 +40,6 @@ export class Shapes extends Component {
       }
     });
 
-    const width = 1097;
-    const height = 700;
-
     const projection = geoMercator()
       // resizes per combined paths that are on the map
       .scale(1)
@@ -59,7 +56,7 @@ export class Shapes extends Component {
           key={`path${i}`}
           d={pathGenerator(d)}
           fill='none'
-          stroke='green'
+          stroke='grey'
           strokeWidth='1'
           className='route' />);
 
@@ -67,11 +64,12 @@ export class Shapes extends Component {
   }
 }
 
-export const mapStateToProps = (state) => {
+export const mapStateToProps = (state, ownProps) => {
   const { routesById } = state.routes;
   const { shapeIds, shapesById } = state.shapes;
+  const { width, height } = ownProps;
   return {
-    shapeIds, shapesById, routesById,
+    shapeIds, shapesById, routesById, width, height,
   };
 };
 

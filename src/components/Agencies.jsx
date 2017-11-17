@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { Header } from 'semantic-ui-react';
 import { getAgencies } from '../actions';
 import Agency from './Agency';
-import Routes from './Routes';
 
 export class Agencies extends Component {
   componentDidMount() {
@@ -13,14 +12,12 @@ export class Agencies extends Component {
   render() {
     const { agencyIds } = this.props;
     return (
-      <div>
+      <div id="agency-details">
         <Header as="h2">
-          Agency Details
+          Agency
         </Header>
 
         { agencyIds.map(agencyId => <Agency key={agencyId} agencyId={agencyId} />) }
-
-        <Routes />
       </div>
     );
   }
