@@ -17,7 +17,6 @@ export class Viewer extends Component {
     const width = this.viewport.clientWidth;
     const height = this.viewport.clientHeight;
     this.setState({ width, height });
-    console.log(width, height);
   }
 
   render() {
@@ -28,7 +27,7 @@ export class Viewer extends Component {
         <Header as="h2">
           Route Viewer
         </Header>
-        <div id="viewport" ref={ viewport => this.viewport = viewport }>
+        <div id="viewport" ref={viewport => this.viewport = viewport}>
           <Shapes width={width} height={height} />
         </div>
       </div>

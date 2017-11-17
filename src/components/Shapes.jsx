@@ -9,36 +9,39 @@ export class Shapes extends Component {
     this.props.getShapes();
   }
 
-  render() {
-    const {
-      shapeIds, shapesById, routesById, width, height,
-    } = this.props;
-
+  hasRoute(id) {
+    // hard coding direction and servcie for now
     const direction = 0; // 0: outbound, 1: inbound
-    const service = 2; // 1: M-F, 2: Sat, 3: Sun
+    const service = 3; // 1: M-F, 2: Sat, 3: Sun
+    const { shapesById, routesById } = this.props;
+    return (routesById[shapesById[id].routeId].routeShapes[direction] &&
+      routesById[shapesById[id].routeId].routeShapes[direction][service] &&
+      routesById[shapesById[id].routeId].routeShapes[direction][service]
+        .includes(id));
+  }
+
+  geoJsonFeature(id) {
+    return {
+      type: 'Feature',
+      properties: {
+        shapeId: this.props.shapesById[id].shapeId,
+      },
+      geometry: {
+        coordinates: this.props.shapesById[id].coordinates,
+        type: 'LineString',
+      },
+    };
+  }
+
+  render() {
+    const { shapeIds, width, height } = this.props;
 
     const geoJson = {
       type: 'FeatureCollection',
-      features: [],
+      features: shapeIds
+        .filter(shapeId => this.hasRoute(shapeId))
+        .map(shapeId => this.geoJsonFeature(shapeId)),
     };
-
-    shapeIds.forEach((id) => {
-      if (routesById[shapesById[id].routeId].routeShapes[direction] &&
-        routesById[shapesById[id].routeId].routeShapes[direction][service] &&
-        routesById[shapesById[id].routeId].routeShapes[direction][service].includes(id)) {
-        const geoJsonFeature = {
-          type: 'Feature',
-          properties: {
-            shapeId: shapesById[id].shapeId,
-          },
-          geometry: {
-            coordinates: shapesById[id].coordinates,
-            type: 'LineString',
-          },
-        };
-        geoJson.features.push(geoJsonFeature);
-      }
-    });
 
     const projection = geoMercator()
       // resizes per combined paths that are on the map
@@ -59,6 +62,17 @@ export class Shapes extends Component {
           stroke='grey'
           strokeWidth='1'
           className='route' />);
+
+    // useful if using absolute scale and positioning for projection
+    // const routePaths = shapeIds
+    //   .filter(id => this.hasRoute(id))
+    //   .map(id => <path
+    //               key={`path${id}`}
+    //               d={pathGenerator(this.geoJsonFeature(id))}
+    //               fill='none'
+    //               stroke='grey'
+    //               strokeWidth='1'
+    //               className='route' />);
 
     return <svg width={width} height={height}>{routePaths}</svg>;
   }
