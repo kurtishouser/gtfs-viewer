@@ -77,9 +77,6 @@ export class Shapes extends Component {
     //               className='route' />);
 
     return <svg width={width} height={height}>{routePaths}</svg>;
-    // return shapeIds
-    //   .filter(shapeId => this.hasRoute(shapeId))
-    //   .map(shapeId => <Shape key={`${shapeId}`} shapeId={shapeId} />);
   }
 }
 

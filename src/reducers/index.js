@@ -2,8 +2,7 @@ import { combineReducers } from 'redux';
 import { AGENCIES_RECEIVED,
   ROUTES_RECEIVED,
   SHAPES_RECEIVED,
-  TOGGLE_SHAPE_COLOR,
-  SERVICE_RECEIVED } from '../actions';
+  TOGGLE_SHAPE_COLOR } from '../actions';
 
 export function agencies(state = { agencyIds: [], agenciesById: {} }, action) {
   switch (action.type) {
@@ -78,27 +77,8 @@ export function shapes(state = { shapeIds: [], shapesById: {} }, action) {
   }
 }
 
-export function trips(state = {}) {
-  return state;
-}
-
-export function services(state = { serviceIds: [], servicesById: {} }, action) {
-  switch (action.type) {
-    case SERVICE_RECEIVED:
-      return {
-        serviceIds: [...state.serviceIds, action.service.routeId],
-        servicesById: { ...state.servicesById, [action.service.routeId]: action.service },
-      };
-
-    default:
-      return state;
-  }
-}
-
 export default combineReducers({
   agencies,
   routes,
   shapes,
-  trips,
-  services,
 });
