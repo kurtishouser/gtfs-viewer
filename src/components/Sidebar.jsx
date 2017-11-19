@@ -26,7 +26,7 @@ export const Sidebar = () => (
           </div>
         </div>
         <div id="sidebar-footer">
-          Muni Mixer
+          Muni Explorer
         </div>
       </div>
     </div>

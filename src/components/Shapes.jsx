@@ -10,9 +10,9 @@ export class Shapes extends Component {
   }
 
   hasRoute(id) {
-    // hard coding direction and servcie for now
+    // hard coding direction and service for now
     const direction = 0; // 0: outbound, 1: inbound
-    const service = 3; // 1: M-F, 2: Sat, 3: Sun
+    const service = 1; // 1: M-F, 2: Sat, 3: Sun
     const { shapesById, routesById } = this.props;
     return (routesById[shapesById[id].routeId].routeShapes[direction] &&
       routesById[shapesById[id].routeId].routeShapes[direction][service] &&
@@ -25,6 +25,8 @@ export class Shapes extends Component {
       type: 'Feature',
       properties: {
         shapeId: this.props.shapesById[id].shapeId,
+        color: this.props.shapesById[id].color,
+        lineWidth: this.props.shapesById[id].lineWidth,
       },
       geometry: {
         coordinates: this.props.shapesById[id].coordinates,
@@ -39,7 +41,7 @@ export class Shapes extends Component {
     const geoJson = {
       type: 'FeatureCollection',
       features: shapeIds
-        .filter(shapeId => this.hasRoute(shapeId))
+        // .filter(shapeId => this.hasRoute(shapeId)) // show all for now
         .map(shapeId => this.geoJsonFeature(shapeId)),
     };
 
@@ -57,11 +59,11 @@ export class Shapes extends Component {
     const routePaths = geoJson.features
       .map(d => <path
           key={`${d.properties.shapeId}`}
+          className='shape'
           d={pathGenerator(d)}
           fill='none'
-          stroke='grey'
-          strokeWidth='1'
-          className='route' />);
+          stroke={`${d.properties.color}`}
+          strokeWidth={`${d.properties.lineWidth}`} />);
 
     // useful if using absolute scale and positioning for projection
     // const routePaths = shapeIds
@@ -75,6 +77,9 @@ export class Shapes extends Component {
     //               className='route' />);
 
     return <svg width={width} height={height}>{routePaths}</svg>;
+    // return shapeIds
+    //   .filter(shapeId => this.hasRoute(shapeId))
+    //   .map(shapeId => <Shape key={`${shapeId}`} shapeId={shapeId} />);
   }
 }
 

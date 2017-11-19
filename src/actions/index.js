@@ -38,7 +38,7 @@ export const SERVICE_RECEIVED = 'SERVICE_RECEIVED';
 export function getService(routeId) {
   return async (dispatch, getState, { Api }) => {
     if (getState().services.serviceIds.includes(routeId)) {
-      return;
+      return null;
     }
     const service = await Api.getService(routeId);
 
@@ -46,5 +46,13 @@ export function getService(routeId) {
       type: SERVICE_RECEIVED,
       service,
     });
+  };
+}
+
+export const TOGGLE_SHAPE_COLOR = 'TOGGLE_SHAPE_COLOR';
+export function toggleShapeColor(shapeIds) {
+  return {
+    type: TOGGLE_SHAPE_COLOR,
+    shapeIds,
   };
 }

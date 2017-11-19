@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Header } from 'semantic-ui-react';
 import { getAgencies } from '../actions';
 import Agency from './Agency';
 
