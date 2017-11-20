@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { geoMercator, geoPath } from 'd3';
 import { getShapes } from '../actions';
+import Shape from './Shape';
 
 export class Shapes extends Component {
   componentDidMount() {
@@ -56,36 +57,25 @@ export class Shapes extends Component {
 
     const pathGenerator = geoPath().projection(projection);
 
-    const routePaths = geoJson.features
-      .map(d => <path
-          key={`${d.properties.shapeId}`}
-          className='shape'
-          d={pathGenerator(d)}
-          fill='none'
-          stroke={`${d.properties.color}`}
-          strokeWidth={`${d.properties.lineWidth}`} />);
-
-    // useful if using absolute scale and positioning for projection
-    // const routePaths = shapeIds
-    //   .filter(id => this.hasRoute(id))
-    //   .map(id => <path
-    //               key={`${d.properties.shapeId}`}
-    //               d={pathGenerator(this.geoJsonFeature(id))}
-    //               fill='none'
-    //               stroke='grey'
-    //               strokeWidth='1'
-    //               className='route' />);
-
-    return <svg width={width} height={height}>{routePaths}</svg>;
+    return (
+      <svg width={width} height={height}>
+        {geoJson.features.map(feature =>
+          <Shape
+            key={`${feature.properties.shapeId}`}
+            feature={feature}
+            pathGenerator={pathGenerator}
+          />)};
+      </svg>
+    );
   }
 }
 
-export const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = (state) => {
   const { routesById } = state.routes;
   const { shapeIds, shapesById } = state.shapes;
-  const { width, height } = ownProps;
+  // const { width, height } = ownProps;
   return {
-    shapeIds, shapesById, routesById, width, height,
+    shapeIds, shapesById, routesById,
   };
 };
 

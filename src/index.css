@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-grow: 1;
   overflow: hidden;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 #sidebar {
   position: relative;
@@ -75,6 +75,7 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   height: auto!important;
+  cursor: pointer;
 }
 #route-list {
   flex-grow: 1;
