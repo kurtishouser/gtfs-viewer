@@ -2,7 +2,13 @@ import { combineReducers } from 'redux';
 import { AGENCIES_RECEIVED,
   ROUTES_RECEIVED,
   SHAPES_RECEIVED,
-  TOGGLE_SHAPE_COLOR } from '../actions';
+  EMPHASIZE_SHAPE,
+  DEEMPHASIZE_SHAPE } from '../actions';
+
+const SHAPE_COLOR = 'grey';
+const SHAPE_LINE_WIDTH = 1;
+const EMPHASIZED_SHAPE_COLOR = 'blue';
+const EMPHASIZED_SHAPE_LINE_WIDTH = 2;
 
 export function agencies(state = { agencyIds: [], agenciesById: {} }, action) {
   switch (action.type) {
@@ -51,25 +57,32 @@ export function shapes(state = { shapeIds: [], shapesById: {} }, action) {
         }, {}),
       };
 
-    case TOGGLE_SHAPE_COLOR:
-      // quick hack for now to prevent fatal error, doesn't quite work though
-      if (!state.shapeIds.length) { // shapes not loaded yet so don't do anything
-        return state;
-      }
+    case EMPHASIZE_SHAPE:
       newState = { shapeIds: [...state.shapeIds], shapesById: { ...state.shapesById } };
 
       action.shapeIds.forEach((shapeId) => {
-        const color = newState.shapesById[shapeId].color === 'grey' ? 'blue' : 'grey';
-        const lineWidth = newState.shapesById[shapeId].lineWidth === 1 ? 2 : 1;
-        // blue lines must be drawn last so they appear on top of all grey lines
-        if (color === 'blue') {
-          const id = state.shapeIds.splice(state.shapeIds.indexOf(shapeId), 1);
-          state.shapeIds.push(id[0]);
-        }
-        newState.shapesById[shapeId] = { ...state.shapesById[shapeId], color, lineWidth };
-      });
-      newState.shapeIds = [...state.shapeIds];
+        // emphasized shapes must be drawn last so move them to the end of the array
+        const id = newState.shapeIds.splice(newState.shapeIds.indexOf(shapeId), 1);
+        newState.shapeIds.push(id[0]);
 
+        newState.shapesById[shapeId] = {
+          ...newState.shapesById[shapeId],
+          color: EMPHASIZED_SHAPE_COLOR,
+          lineWidth: EMPHASIZED_SHAPE_LINE_WIDTH,
+        };
+      });
+      return newState;
+
+    case DEEMPHASIZE_SHAPE:
+      newState = { shapeIds: [...state.shapeIds], shapesById: { ...state.shapesById } };
+
+      action.shapeIds.forEach((shapeId) => {
+        newState.shapesById[shapeId] = {
+          ...newState.shapesById[shapeId],
+          color: SHAPE_COLOR,
+          lineWidth: SHAPE_LINE_WIDTH,
+        };
+      });
       return newState;
 
     default:

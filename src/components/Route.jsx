@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { toggleShapeColor } from '../actions';
+import { emphasizeShape, deemphasizeShape } from '../actions';
 
 export class Route extends Component {
   constructor(props) {
     super(props);
 
-    this.toggleRoute = this.toggleRoute.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
   }
 
-  toggleRoute() {
+  combineShapeIds() {
     const { routeShapes } = this.props.route;
-
     const shapeIds = {};
     const directions = Object.keys(routeShapes).map(key => key);
+
     directions.forEach((direction) => {
       Object.keys(routeShapes[direction]).forEach((service) => {
         const sIds = Object.values(routeShapes[direction][service]);
@@ -24,15 +25,19 @@ export class Route extends Component {
       });
     });
 
-    this.props.toggleShapeColor(Object.keys(shapeIds));
+    return shapeIds;
+  }
 
-    // hard coding direction and service for now
-    // const direction = 0; // 0: outbound, 1: inbound
-    // const service = 2; // 1: M-F, 2: Sat, 3: Sun
-    // if (routeShapes[direction] &&
-    //   routeShapes[direction][service]) {
-    //   this.props.toggleShapeColor(routeShapes[direction][service]);
-    // }
+  handleMouseOver() {
+    if (this.props.shapeIds.length) {
+      this.props.emphasizeShape(Object.keys(this.combineShapeIds()));
+    }
+  }
+
+  handleMouseOut() {
+    if (this.props.shapeIds.length) {
+      this.props.deemphasizeShape(Object.keys(this.combineShapeIds()));
+    }
   }
 
   render() {
@@ -43,8 +48,8 @@ export class Route extends Component {
     return (
       <div className="route-item"
         id={routeId}
-        onMouseOver={this.toggleRoute}
-        onMouseOut={this.toggleRoute}>
+        onMouseOver={this.handleMouseOver}
+        onMouseOut={this.handleMouseOut}>
         { routeShortName } { routeLongName }
       </div>
     );
@@ -53,11 +58,13 @@ export class Route extends Component {
 
 export const mapStateToProps = (state, ownProps) => {
   const route = state.routes.routesById[ownProps.routeId];
-  return { route };
+  const { shapeIds } = state.shapes;
+  return { route, shapeIds };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  toggleShapeColor,
+  emphasizeShape,
+  deemphasizeShape,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Route);

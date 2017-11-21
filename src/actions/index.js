@@ -49,10 +49,18 @@ export function getService(routeId) {
   };
 }
 
-export const TOGGLE_SHAPE_COLOR = 'TOGGLE_SHAPE_COLOR';
-export function toggleShapeColor(shapeIds) {
+export const EMPHASIZE_SHAPE = 'EMPHASIZE_SHAPE';
+export function emphasizeShape(shapeIds) {
   return {
-    type: TOGGLE_SHAPE_COLOR,
+    type: EMPHASIZE_SHAPE,
+    shapeIds,
+  };
+}
+
+export const DEEMPHASIZE_SHAPE = 'DEEMPHASIZE_SHAPE';
+export function deemphasizeShape(shapeIds) {
+  return {
+    type: DEEMPHASIZE_SHAPE,
     shapeIds,
   };
 }
