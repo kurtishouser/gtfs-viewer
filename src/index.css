@@ -15,14 +15,13 @@ body {
   display: flex;
   flex-grow: 1;
   overflow: hidden;
-  /*cursor: pointer;*/
 }
 #sidebar {
   position: relative;
   display: flex;
   flex-direction: column;
   flex-basis: 350px;
-  min-width: 1px;
+  min-width: 220px;
   max-width: 350px;
   background: #a82036;
   color: #dddddd;
@@ -32,6 +31,7 @@ body {
   padding: 20px;
   background-color: #333333;
   flex-basis: 120px;
+  overflow: hidden;
 }
 #sidebar-header #agency-details,
 #sidebar-header #agency-details h2,
@@ -40,6 +40,7 @@ body {
 }
 #sidebar-body-header {
   padding: 10px 20px 0px 20px;
+  overflow: hidden;
 }
 #sidebar-body {
   position: relative;
