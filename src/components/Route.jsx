@@ -13,14 +13,14 @@ export class Route extends Component {
 
   combineShapeIds() {
     const { routeShapes } = this.props.route;
-    const shapeIds = {};
-    const directions = Object.keys(routeShapes).map(key => key);
+    const shapeIds = [];
 
-    directions.forEach((direction) => {
+    Object.keys(routeShapes).forEach((direction) => {
       Object.keys(routeShapes[direction]).forEach((service) => {
-        const sIds = Object.values(routeShapes[direction][service]);
-        sIds.forEach((sId) => {
-          shapeIds[sId] = sId;
+        routeShapes[direction][service].forEach((shapeId) => {
+          if (!shapeIds.includes(shapeId)) {
+            shapeIds.push(shapeId);
+          }
         });
       });
     });
@@ -30,13 +30,13 @@ export class Route extends Component {
 
   handleMouseOver() {
     if (this.props.shapeIds.length) {
-      this.props.emphasizeShape(Object.keys(this.combineShapeIds()));
+      this.props.emphasizeShape(this.combineShapeIds());
     }
   }
 
   handleMouseOut() {
     if (this.props.shapeIds.length) {
-      this.props.deemphasizeShape(Object.keys(this.combineShapeIds()));
+      this.props.deemphasizeShape(this.combineShapeIds());
     }
   }
 
