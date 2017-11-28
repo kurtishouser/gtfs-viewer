@@ -6,19 +6,79 @@ import { getShapes } from '../actions';
 import Shape from './Shape';
 
 export class Shapes extends Component {
+  constructor(props) {
+    super(props);
+
+    this.byRouteType = this.byRouteType.bind(this);
+    this.byRouteDirection = this.byRouteDirection.bind(this);
+    this.byRouteService = this.byRouteService.bind(this);
+    this.geoJsonFeature = this.geoJsonFeature.bind(this);
+  }
+
   componentDidMount() {
     this.props.getShapes();
   }
 
-  hasRoute(id) {
-    // hard coding direction and service for now
-    const direction = 0; // 0: outbound, 1: inbound
-    const service = 1; // 1: M-F, 2: Sat, 3: Sun
+  byRouteType(id) {
+    const { type } = this.props.routeFilters;
     const { shapesById, routesById } = this.props;
-    return (routesById[shapesById[id].routeId].routeShapes[direction] &&
-      routesById[shapesById[id].routeId].routeShapes[direction][service] &&
-      routesById[shapesById[id].routeId].routeShapes[direction][service]
-        .includes(id));
+
+    if (type === 'all') {
+      return true;
+    }
+
+    return (routesById[shapesById[id].routeId].routeType === type);
+  }
+
+  byRouteDirection(id) {
+    const { direction } = this.props.routeFilters;
+    const { shapesById, routesById } = this.props;
+
+    if (direction === 'all') {
+      return true;
+    }
+
+    if (routesById[shapesById[id].routeId].routeShapes[direction]) { // try-catch instead?
+      const routeShapes = routesById[shapesById[id].routeId].routeShapes[direction];
+      const services = Object.keys(routeShapes);
+
+      for (let i = 0; i < services.length; i += 1) {
+        if (routeShapes[services[i]].includes(id)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  byRouteService(id) {
+    const { direction, service } = this.props.routeFilters;
+    const { shapesById, routesById } = this.props;
+
+    if (service === 'all') {
+      return true;
+    }
+
+    const { routeShapes } = routesById[shapesById[id].routeId];
+
+    if (direction === 'all') {
+      const directions = Object.keys(routeShapes);
+
+      for (let i = 0; i < directions.length; i += 1) {
+        if (routeShapes[directions[i]][service] &&
+          routeShapes[directions[i]][service].includes(id)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    return (routeShapes[direction] &&
+            routeShapes[direction][service] &&
+            routeShapes[direction][service]
+              .includes(id));
   }
 
   geoJsonFeature(id) {
@@ -26,6 +86,7 @@ export class Shapes extends Component {
       type: 'Feature',
       properties: {
         shapeId: this.props.shapesById[id].shapeId,
+        routeId: this.props.shapesById[id].routeId,
         color: this.props.shapesById[id].color,
         lineWidth: this.props.shapesById[id].lineWidth,
       },
@@ -37,13 +98,17 @@ export class Shapes extends Component {
   }
 
   render() {
-    const { shapeIds, width, height } = this.props;
+    let { shapeIds } = this.props;
+    const { width, height } = this.props;
+    const { type, direction, service } = this.props.routeFilters;
+
+    shapeIds = type !== 'all' ? shapeIds.filter(this.byRouteType) : shapeIds;
+    shapeIds = direction !== 'all' ? shapeIds.filter(this.byRouteDirection) : shapeIds;
+    shapeIds = service !== 'all' ? shapeIds.filter(this.byRouteService) : shapeIds;
 
     const geoJson = {
       type: 'FeatureCollection',
-      features: shapeIds
-        // .filter(shapeId => this.hasRoute(shapeId)) // show all for now
-        .map(shapeId => this.geoJsonFeature(shapeId)),
+      features: shapeIds.map(this.geoJsonFeature),
     };
 
     const projection = geoMercator()
@@ -71,11 +136,12 @@ export class Shapes extends Component {
 }
 
 export const mapStateToProps = (state) => {
+  const { routeFilters } = state.settings;
   const { routesById } = state.routes;
   const { shapeIds, shapesById } = state.shapes;
-  // const { width, height } = ownProps;
+
   return {
-    shapeIds, shapesById, routesById,
+    routeFilters, shapeIds, shapesById, routesById,
   };
 };
 
