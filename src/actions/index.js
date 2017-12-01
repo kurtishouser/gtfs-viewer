@@ -34,21 +34,6 @@ export function getShapes() {
   };
 }
 
-export const SERVICE_RECEIVED = 'SERVICE_RECEIVED';
-export function getService(routeId) {
-  return async (dispatch, getState, { Api }) => {
-    if (getState().services.serviceIds.includes(routeId)) {
-      return null;
-    }
-    const service = await Api.getService(routeId);
-
-    return dispatch({
-      type: SERVICE_RECEIVED,
-      service,
-    });
-  };
-}
-
 export const EMPHASIZE_SHAPE = 'EMPHASIZE_SHAPE';
 export function emphasizeShape(shapeIds) {
   return {
