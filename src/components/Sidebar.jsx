@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from 'semantic-ui-react';
 import Agencies from './Agencies';
 import Routes from './Routes';
+import RouteFilters from './RouteFilters';
 
 export const Sidebar = () => (
   <div id="sidebar">
@@ -20,6 +21,7 @@ export const Sidebar = () => (
     </div>
     <div id="sidebar-body">
       <div id="routes">
+        <RouteFilters />
         <div id="routes-container">
           <div id="routes-scroller">
             <Routes />

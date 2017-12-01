@@ -64,3 +64,27 @@ export function deemphasizeShape(shapeIds) {
     shapeIds,
   };
 }
+
+export const FILTER_ROUTE_TYPE = 'FILTER_ROUTE_TYPE';
+export function filterByRouteType(value) {
+  return {
+    type: FILTER_ROUTE_TYPE,
+    value,
+  };
+}
+
+export const FILTER_ROUTE_DIRECTION = 'FILTER_ROUTE_DIRECTION';
+export function filterByRouteDirection(value) {
+  return {
+    type: FILTER_ROUTE_DIRECTION,
+    value,
+  };
+}
+
+export const FILTER_ROUTE_SERVICE = 'FILTER_ROUTE_SERVICE';
+export function filterByRouteService(value) {
+  return {
+    type: FILTER_ROUTE_SERVICE,
+    value,
+  };
+}
