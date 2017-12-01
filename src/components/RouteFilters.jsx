@@ -58,23 +58,24 @@ class RouteFilters extends Component {
 
   render() {
     return (
-      <div>
-        Filter by:&nbsp;&nbsp;
+      <div id="route-filters">
+        <span><strong>Filter by:&nbsp;&nbsp;</strong></span>
         <Dropdown
+          className='route-filter-dropdown'
           text='Type'
           defaultValue={'all'}
           options={types}
           onChange={this.handleDropdownChange}
         />
-        &nbsp;&nbsp;&nbsp;&nbsp;
         <Dropdown
+          className='route-filter-dropdown'
           text='Direction'
           defaultValue={'all'}
           options={directions}
           onChange={this.handleDropdownChange}
         />
-        &nbsp;&nbsp;&nbsp;&nbsp;
         <Dropdown
+          className='route-filter-dropdown'
           text='Service'
           defaultValue={'all'}
           options={services}

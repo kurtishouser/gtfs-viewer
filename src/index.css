@@ -62,6 +62,12 @@ body {
   flex-direction: column;
   min-width: 1px;
 }
+#route-filters {
+  padding: 5px 20px 0 20px;
+}
+.route-filter-dropdown {
+  margin-right: 15px;
+}
 #routes-container {
   position: relative;
   overflow-y: hidden;
