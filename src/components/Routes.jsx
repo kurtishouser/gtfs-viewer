@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Loader } from 'semantic-ui-react';
 import { getRoutes } from '../actions';
 import Route from './Route';
 
@@ -78,10 +79,13 @@ export class Routes extends Component {
 
     return (
       <div id="route-list">
-        { routeIds.map(routeId => <Route
-          key={routeId}
-          routeId={routeId}
-        />) }
+        {routeIds.length === 0 ? (
+          <Loader active>Retrieving Route List</Loader>
+        ) : (
+          <div>
+            { routeIds.map(routeId => <Route key={routeId} routeId={routeId} />) }
+          </div>
+        )}
       </div>
     );
   }

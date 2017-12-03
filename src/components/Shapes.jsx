@@ -5,6 +5,9 @@ import { geoMercator, geoPath } from 'd3';
 import { getShapes } from '../actions';
 import Shape from './Shape';
 
+import { Loader } from 'semantic-ui-react';
+
+
 export class Shapes extends Component {
   constructor(props) {
     super(props);
@@ -123,14 +126,20 @@ export class Shapes extends Component {
     const pathGenerator = geoPath().projection(projection);
 
     return (
-      <svg width={width} height={height}>
-        {geoJson.features.map(feature =>
-          <Shape
-            key={`${feature.properties.shapeId}`}
-            feature={feature}
-            pathGenerator={pathGenerator}
-          />)};
-      </svg>
+      <div>
+        {shapeIds.length === 0 ? (
+            <Loader active>Retrieving Route Coordinates</Loader>
+          ) : (
+            <svg width={width} height={height}>
+              {geoJson.features.map(feature =>
+                <Shape
+                  key={`${feature.properties.shapeId}`}
+                  feature={feature}
+                  pathGenerator={pathGenerator}
+                />)};
+            </svg>
+          )}
+      </div>
     );
   }
 }
