@@ -1,18 +1,18 @@
-const BASE_PATH = 'http://localhost:8000';
+const apiUrl = process.env.REACT_APP_API_SERVER_URL;
 
 export default class Api {
   static getAgencies() {
-    return fetch(`${BASE_PATH}/agencies`)
+    return fetch(`${apiUrl}/agencies`)
       .then(response => response.json());
   }
 
   static getRoutes() {
-    return fetch(`${BASE_PATH}/routes`)
+    return fetch(`${apiUrl}/routes`)
       .then(response => response.json());
   }
 
   static getShapes() {
-    return fetch(`${BASE_PATH}/shapes`)
+    return fetch(`${apiUrl}/shapes`)
       .then(response => response.json());
   }
 }
