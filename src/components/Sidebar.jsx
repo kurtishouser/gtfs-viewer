@@ -28,7 +28,7 @@ export const Sidebar = () => (
           </div>
         </div>
         <div id="sidebar-footer">
-          Muni Explorer
+          GTFS Viewer
         </div>
       </div>
     </div>

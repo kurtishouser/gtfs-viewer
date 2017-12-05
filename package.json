@@ -1,6 +1,6 @@
 {
-  "name": "sfmta-spa",
-  "version": "0.1.0",
+  "name": "gtfs-viewer",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "d3": "^4.11.0",
