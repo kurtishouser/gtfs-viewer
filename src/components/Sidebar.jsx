@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Icon } from 'semantic-ui-react';
 import Agencies from './Agencies';
 import Routes from './Routes';
 import RouteFilters from './RouteFilters';
@@ -28,6 +28,9 @@ export const Sidebar = () => (
           </div>
         </div>
         <div id="sidebar-footer">
+          <a href="https://github.com/kurtishouser/gtfs-viewer" target="_blank">
+            <Icon name='github' size='big' />
+          </a>
           GTFS Viewer
         </div>
       </div>
