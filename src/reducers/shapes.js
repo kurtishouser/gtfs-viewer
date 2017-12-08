@@ -15,7 +15,7 @@ function shapes(state = { shapeIds: [], shapesById: {} }, action) {
       return {
         shapeIds: action.shapes.map(shape => shape.shapeId),
         shapesById: action.shapes.reduce((result, shape) => {
-          shape.color = 'grey';
+          shape.color = SHAPE_COLOR;
           shape.lineWidth = 1;
           result[shape.shapeId] = shape;
           return result;
