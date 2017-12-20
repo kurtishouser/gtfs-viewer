@@ -10,6 +10,18 @@ export function getAgencies() {
   };
 }
 
+export const ROUTE_TYPES_RECEIVED = 'ROUTE_TYPES_RECEIVED';
+export function getRouteTypes() {
+  return async (dispatch, getState, { Api }) => {
+    const routeTypes = await Api.getRouteTypes();
+
+    return dispatch({
+      type: ROUTE_TYPES_RECEIVED,
+      routeTypes,
+    });
+  };
+}
+
 export const ROUTES_RECEIVED = 'ROUTES_RECEIVED';
 export function getRoutes() {
   return async (dispatch, getState, { Api }) => {

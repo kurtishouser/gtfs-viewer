@@ -11,6 +11,11 @@ export default class Api {
       .then(response => response.json());
   }
 
+  static getRouteTypes() {
+    return fetch(`${apiUrl}/types`)
+      .then(response => response.json());
+  }
+
   static getShapes() {
     return fetch(`${apiUrl}/shapes`)
       .then(response => response.json());

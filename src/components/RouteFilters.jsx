@@ -2,19 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Dropdown } from 'semantic-ui-react';
-import { filterByRouteType,
+import { getRouteTypes,
+  filterByRouteType,
   filterByRouteDirection,
   filterByRouteService } from '../actions';
 
-// hard coding type, directions and services for now
-// retrieve from API server later
-const types = [
-  { key: 'all', value: 'all', text: 'All' },
-  { key: '0', value: 0, text: 'Tram' },
-  { key: '3', value: 3, text: 'Bus' },
-  { key: '5', value: 5, text: 'Cable Car' },
-];
-
+// directions and services for now, retrieve from API server later
 const directions = [
   { key: 'all', value: 'all', text: 'All' },
   { key: '0', value: '0', text: 'Outbound' },
@@ -33,6 +26,10 @@ class RouteFilters extends Component {
     super(props);
 
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getRouteTypes();
   }
 
   handleDropdownChange(e, data) {
@@ -64,7 +61,7 @@ class RouteFilters extends Component {
           className='route-filter-dropdown'
           text='Type'
           defaultValue={'all'}
-          options={types}
+          options={this.props.routeTypes}
           onChange={this.handleDropdownChange}
         />
         <Dropdown
@@ -86,13 +83,19 @@ class RouteFilters extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  const { routeTypes } = state.routes;
+  return { routeTypes };
+};
+
 const mapDispatchToProps = dispatch => bindActionCreators({
+  getRouteTypes,
   filterByRouteType,
   filterByRouteDirection,
   filterByRouteService,
 }, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(RouteFilters);
