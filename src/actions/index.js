@@ -1,48 +1,38 @@
+import { camelizeKeys } from 'humps';
+import agencies from '../data/agencies.json';
+import types from '../data/types.json';
+import routes from '../data/routes.json';
+import shapes from '../data/shapes.json';
+
 export const AGENCIES_RECEIVED = 'AGENCIES_RECEIVED';
 export function getAgencies() {
-  return async (dispatch, getState, { Api }) => {
-    const agencies = await Api.getAgencies();
-
-    return dispatch({
-      type: AGENCIES_RECEIVED,
-      agencies,
-    });
+  return {
+    type: AGENCIES_RECEIVED,
+    agencies: camelizeKeys(agencies),
   };
 }
 
 export const ROUTE_TYPES_RECEIVED = 'ROUTE_TYPES_RECEIVED';
 export function getRouteTypes() {
-  return async (dispatch, getState, { Api }) => {
-    const routeTypes = await Api.getRouteTypes();
-
-    return dispatch({
-      type: ROUTE_TYPES_RECEIVED,
-      routeTypes,
-    });
+  return {
+    type: ROUTE_TYPES_RECEIVED,
+    routeTypes: camelizeKeys(types),
   };
 }
 
 export const ROUTES_RECEIVED = 'ROUTES_RECEIVED';
 export function getRoutes() {
-  return async (dispatch, getState, { Api }) => {
-    const routes = await Api.getRoutes();
-
-    return dispatch({
-      type: ROUTES_RECEIVED,
-      routes,
-    });
+  return {
+    type: ROUTES_RECEIVED,
+    routes: camelizeKeys(routes),
   };
 }
 
 export const SHAPES_RECEIVED = 'SHAPES_RECEIVED';
 export function getShapes() {
-  return async (dispatch, getState, { Api }) => {
-    const shapes = await Api.getShapes();
-
-    return dispatch({
-      type: SHAPES_RECEIVED,
-      shapes,
-    });
+  return {
+    type: SHAPES_RECEIVED,
+    shapes: camelizeKeys(shapes),
   };
 }
 
