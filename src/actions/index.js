@@ -1,4 +1,5 @@
 import { camelizeKeys } from 'humps';
+import byKey from '../helpers/natural-sort';
 import agencies from '../data/agencies.json';
 import types from '../data/types.json';
 import routes from '../data/routes.json';
@@ -24,7 +25,7 @@ export const ROUTES_RECEIVED = 'ROUTES_RECEIVED';
 export function getRoutes() {
   return {
     type: ROUTES_RECEIVED,
-    routes: camelizeKeys(routes),
+    routes: camelizeKeys(routes.sort(byKey('route_short_name'))),
   };
 }
 
