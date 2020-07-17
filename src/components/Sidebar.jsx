@@ -28,7 +28,7 @@ export const Sidebar = () => (
           </div>
         </div>
         <div id="sidebar-footer">
-          <a href="https://github.com/kurtishouser/gtfs-viewer" target="_blank">
+          <a href="https://github.com/kurtishouser/gtfs-viewer" target="_blank" rel="noopener noreferrer">
             <Icon name='github' size='big' />
           </a>
           GTFS Viewer
