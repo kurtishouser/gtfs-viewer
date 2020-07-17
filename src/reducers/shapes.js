@@ -2,7 +2,7 @@ import { SHAPES_RECEIVED,
   EMPHASIZE_SHAPE,
   DEEMPHASIZE_SHAPE } from '../actions';
 
-const SHAPE_COLOR = 'grey';
+const SHAPE_COLOR = 'rgb(120,120,120)';
 const SHAPE_LINE_WIDTH = 1;
 const EMPHASIZED_SHAPE_COLOR = 'blue';
 const EMPHASIZED_SHAPE_LINE_WIDTH = 2;
@@ -16,7 +16,8 @@ function shapes(state = { shapeIds: [], shapesById: {} }, action) {
         shapeIds: action.shapes.map(shape => shape.shapeId),
         shapesById: action.shapes.reduce((result, shape) => {
           shape.color = SHAPE_COLOR;
-          shape.lineWidth = 1;
+          shape.fill = 'none';
+          shape.lineWidth = SHAPE_LINE_WIDTH;
           result[shape.shapeId] = shape;
           return result;
         }, {}),

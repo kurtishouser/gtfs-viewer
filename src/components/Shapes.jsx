@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { geoMercator, geoPath } from 'd3';
-import { getShapes } from '../actions';
-import Shape from './Shape';
-
 import { Loader } from 'semantic-ui-react';
 
+import { getShapes } from '../actions';
+import Shape from './Shape';
 
 export class Shapes extends Component {
   constructor(props) {
@@ -91,6 +90,7 @@ export class Shapes extends Component {
         shapeId: this.props.shapesById[id].shapeId,
         routeId: this.props.shapesById[id].routeId,
         color: this.props.shapesById[id].color,
+        fill: this.props.shapesById[id].fill,
         lineWidth: this.props.shapesById[id].lineWidth,
       },
       geometry: {
