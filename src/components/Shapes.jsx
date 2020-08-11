@@ -132,14 +132,21 @@ export class Shapes extends Component {
             <Loader active>Retrieving Route Coordinates</Loader>
           ) : (
             <svg width={width} height={height}>
-              {geoJson.features.map(feature =>
-                <Shape
-                  key={`${feature.properties.shapeId}`}
-                  feature={feature}
-                  pathGenerator={pathGenerator}
-                />)};
+              <clipPath id="boundingBox">
+                <rect width={width} height={height} />
+              </clipPath>
+              <g clipPath="url(#boundingBox)">
+                {geoJson.features.map(feature =>
+                  <Shape
+                    key={`${feature.properties.shapeId}`}
+                    feature={feature}
+                    pathGenerator={pathGenerator}
+                  />
+                )};
+              </g>
             </svg>
-          )}
+          )
+        }
       </div>
     );
   }
