@@ -30,7 +30,6 @@ body {
   position: relative;
   padding: 20px;
   background-color: #333333;
-  flex-basis: 120px;
   overflow: hidden;
 }
 #sidebar-header #agency-details,

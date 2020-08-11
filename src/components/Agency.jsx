@@ -6,9 +6,9 @@ export class Agency extends Component {
     const { agencyId, agencyName } = this.props.agency;
 
     return (
-      <p>
+      <div>
         { agencyName } ({ agencyId })
-      </p>
+      </div>
     );
   }
 }

@@ -119,6 +119,7 @@ export class Shapes extends Component {
       .scale(1)
       .fitSize([width, height], geoJson);
       // absolute scale
+      // San Francisco, CA
       // .scale(225000) // 248000
       // .center([-122.433701, 37.767683])
       // .translate([width / 2, height / 2]);
